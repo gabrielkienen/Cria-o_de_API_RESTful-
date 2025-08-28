@@ -1,0 +1,79 @@
+#Endpoints para criar a estrutura da API de cadastro de alunos:
+#  - localhost/Alunos (get) - procurar/consultar todos os cadastros dos alunos
+#  - localhost/Alunos/id (get) - procurar/consultar um cadastro específico de aluno por id
+#  - localhost/Alunos/id (post) - criar um novo cadastro de aluno
+#  - localhost/Alunos/id (put) - atualizar/editar um cadastro de aluno
+#  - localhost/Alunos/id (delete) - deletar um cadastro de aluno 
+
+
+
+from flask import Flask, jsonify, request, abort 
+
+app = Flask(__name__)
+
+alunos = [
+    {
+        "id": 1,
+        "nome": "Ana Souza",
+        "turma": "3A",
+        "idade": 15
+    },
+    {
+        "id": 2,
+        "nome": "Bruno Lima",
+        "turma": "2B",
+        "idade": 14
+    },
+    {
+        "id": 3,
+        "nome": "Carla Mendes",
+        "turma": "1C",
+        "idade": 13
+    }
+]
+
+# Consultar todos os cadastros
+@app.route('/Alunos', methods=['GET'])
+def obter_alunos():
+    return jsonify(alunos)
+
+# Consultar um cadastro por id
+@app.route('/Alunos/<int:id>', methods=['GET'])
+def obter_aluno_por_id(id):
+    for aluno in alunos:
+        if aluno.get('id') == id:
+
+            return jsonify(aluno)
+    abort(404)
+
+# Editar/atualizar um cadastro por id
+@app.route('/Alunos/<int:id>', methods=['PUT'])
+def editar_aluno_por_id(id):
+    aluno_alterado = request.get_json()
+    for indice, aluno in enumerate(alunos):
+        if aluno.get('id') == id:
+            alunos[indice].update(aluno_alterado)
+
+    return jsonify(alunos[indice])
+    abort(404)
+
+# Criar um novo cadastro
+@app.route('/Alunos', methods=['POST'])
+def incluir_novo_aluno_por_id(id):
+    novo_aluno = request.get_json()
+    alunos.append(novo_aluno)
+    return jsonify(novo_aluno)
+
+# Deletar um cadastro por id
+@app.route('/Alunos/<int:id>', methods=['DELETE']) 
+def deletar_aluno(id):  
+    for indice, aluno in enumerate(alunos):
+        if aluno.get('id') == id:
+            del alunos[indice]
+
+    return jsonify(aluno) 
+    abort(404)
+
+
+app.run(port=5000, host='localhost', debug=True)
+
