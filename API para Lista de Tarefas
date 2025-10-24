@@ -1,1 +1,13 @@
+#                                                             API para Gerenciar Lista de Tarefas
+
+
+#Endpoints para criar a estrutura da API da lista de tarefas:
+
+# - localhost/Lista_de_Tarefas (GET) - Para consultar a lista de tarefas com todas as tarfeas cadastradas no código
+# - localhost/Lista_de_Tarefas/id (GET) - Para consultar uma tarefa em específico com base no "id" dessa tarefa 
+# - localhost/Lista_de_Tarefas/id (POST) - Para criar novas tarefas para a lista de tarefas
+# - localhost/Lista_de_Tarefas/id (PUT) - Para atualizar/editar uma tarefa específica dentro da lista de tarefas
+# - localhost/Lista_de_Tarefas/id (DELETE) - Para deletar uma tarefa da lista de tarefas   
+
+
 
